@@ -1,0 +1,35 @@
+
+
+.NavBarBox {
+    background-color: white;
+    /* padding: 0rem 0rem 1rem 0rem ;  */
+    margin: 0;
+}
+
+.navName {
+    text-decoration: none;
+}
+  h1, h3 {
+    color: black;
+    /* margin: 0; */
+  }
+
+  .navList {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+
+  .navLink {
+    color: darkgray;
+    text-decoration: none;
+
+  }
+
+  .navLink:hover {
+    color: #3182ce;
+  }
+
+  hr {
+    border-color: black;
+    width: 100%;
+  }
