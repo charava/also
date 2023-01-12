@@ -25,6 +25,16 @@ create backend algorithm - using python? maybe need to use hooks, look at my com
 
 - age and bday should match, find a way to use values.age to validate the birthdate in yup
 
+GIT STUFF
+rm -rf .git     
+git add -A                                           
+git status
+git branch -m master main
+git status
+git commit -m "first commit"
+git remote add origin git@github.com:charava/also.git
+git push --set-upstream origin main
+
 
 */ 
 
