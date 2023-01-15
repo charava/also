@@ -11,6 +11,8 @@ TODO:
 
 // add a backup experience
 - enable ppl to update their response
+- fix the 404 errors on vercel
+- create backend algorithm - using python? maybe need to use hooks, look at my comments in algorithm
 
 - add better description of project on site 
 - change branding to add "youth" component, add more experiences
@@ -21,7 +23,6 @@ TODO:
 - center mainbody div content 
 - add footer created by charlotte
 
-create backend algorithm - using python? maybe need to use hooks, look at my comments in algorithm
 
 - age and bday should match, find a way to use values.age to validate the birthdate in yup
 
@@ -36,6 +37,11 @@ git remote add origin git@github.com:charava/also.git
 git push --set-upstream origin main
 
 
+npm run build
+cd build
+vercel...
+once deployed, make immediate changes
+vercel --prod
 */ 
 
 
