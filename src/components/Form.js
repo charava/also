@@ -93,6 +93,20 @@ class SignupForm extends React.Component {
   }
 
   componentDidMount() {
+    // const body = {
+    //     id: "63c4b0533e60435bd6f9894c"
+    // }
+
+    // axios
+    //   .delete('http://localhost:8082/id', body)
+    //   .then(res => {
+    //     console.log('done')
+    //   })
+    //   .catch(err =>{
+    //     console.log('Error from fetching database');
+    //   })
+    
+
     axios
       .get('http://localhost:8082/users')
       .then(res => {
@@ -105,6 +119,8 @@ class SignupForm extends React.Component {
         console.log('Error from fetching database');
       })
     };
+
+
 
     alreadyEmail = (email) => {
         console.log(this.state.prevUsers)
@@ -133,6 +149,8 @@ class SignupForm extends React.Component {
         <h3>Find a buddy in your community who shares a similar mental health or trauma experience</h3>
         <p>We help youth ages 14-18 find someone in their community to talk to who shares a first-hand understanding of their mental health challenge or trauma. Our algorithm matches people based on the similar situations, identities (age, gender, etc), interests, and location. For more information, visit our <a href='/faqs'>FAQs</a>.</p>
         <p class='smallwarning'>Please note, you can only submit the form once.</p>
+   
+        
         <Formik
           initialValues={{
             firstName: '',
@@ -142,9 +160,7 @@ class SignupForm extends React.Component {
             age: '',
             birthdate: '',
             gender: '',
-            city: '',
-            // otherMentalHealth: '',
-            
+            city: '',    
             topExperience: '',
             explanation: '',
             durationExperienced: '',
@@ -219,63 +235,56 @@ class SignupForm extends React.Component {
            
           })}
   
-          onSubmit={(values, { setSubmitting, resetForm }) => {
+          onSubmit={(values, { resetForm }) => {
             // setTimeout(() => {
             //   alert(JSON.stringify(values, null, 2));
             //   setSubmitting(false);
             // }, 400);
-            // resetForm();
             
   
             if (values.age > 18) {
-              setTimeout(() => {
-                alert(JSON.stringify('Sorry, only youth ages 14-18 are allowed to be matched.', null, 2));
-                setSubmitting(false);
-              }, 400);
+            //   setTimeout(() => {
+            //     alert(JSON.stringify('Sorry, only youth ages 14-18 are allowed to be matched.', null, 2));
+            //     setSubmitting(false);
+            //   }, 400);
 
               this.setState({submit: 'Your submission will not be recieved; only youth ages 14-18 are allowed to be matched.'})
               
             } else if  (values.age < 14) {
-              setTimeout(() => {
-                alert(JSON.stringify('Sorry, we only allow youth over the age of 14 to be matched.', null, 2));
-                setSubmitting(false);
-              }, 400);
+            //   setTimeout(() => {
+            //     alert(JSON.stringify('Sorry, we only allow youth over the age of 14 to be matched.', null, 2));
+            //     setSubmitting(false);
+            //   }, 400);
               this.setState({submit: 'Your submission will not be recieved; only youth ages 14-18 are allowed to be matched.'})
 
   
             } else if (this.alreadyEmail(values.email)) {
-            setTimeout(() => {
-                alert(JSON.stringify('Someone with you email has already submitted to this form. If this is not you, please email charcharrosario@gmail for support.', null, 2));
-                setSubmitting(false);
-                }, 400);
-            this.setState({submit: 'Someone with you email has already submitted to this form. If this is not you, please email charcharrosario@gmail for support.'})
+                // setTimeout(() => {
+                //     alert(JSON.stringify('Someone with you email has already submitted to this form. If this is not you, please email charcharrosario@gmail for support.', null, 2));
+                //     setSubmitting(false);
+                //     }, 400);
+                this.setState({submit: 'Someone with you email has already submitted to this form. If this is not you, please email charcharrosario@gmail for support.'})
 
 
             } else if (this.alreadyPhone(values.phone)) {
-                setTimeout(() => {
-                    alert(JSON.stringify('Someone with your phone has already submitted to this form. If this is not you, please email charcharrosario@gmail.com for support.', null, 2));
-                    setSubmitting(false);
-                    }, 400);
+                // setTimeout(() => {
+                //     alert(JSON.stringify('Someone with your phone has already submitted to this form. If this is not you, please email charcharrosario@gmail.com for support.', null, 2));
+                //     setSubmitting(false);
+                //     }, 400);
                 this.setState({submit: 'Someone with your phone already submitted to this form. If this is not you, please email charcharrosario@gmail.com for support.'})
             
 
             } else {
-              setTimeout(() => {
-                alert(JSON.stringify('Thanks for submitting! Look out for an email over the next two months to see if you\'ve been matched.', null, 2));
-                setSubmitting(false);
-              }, 400);
-              this.setState({submit: 'Thanks for submitting! Have a question about what\'s next? Check out our FAQs.'})
+            //   setTimeout(() => {
+            //     alert(JSON.stringify('Thanks for submitting! Look out for an email over the next two months to see if you\'ve been matched.', null, 2));
+            //     setSubmitting(false);
+            //   }, 400);
+  
+              let genderPref = values.genderPref;
 
-              const genderPref = values.genderPref
-              if (values.genderPref.includes('noPref')) {
+              if (genderPref.includes('noPref')) {
                 genderPref = ['noPref']
               }
-  
-            //   const experiences = values.experiences 
-            //   if (values.otherMentalHealth != '') {
-            //     experiences.push(values.otherMentalHealth)
-            //   }
-
 
   
               const data = {
@@ -284,25 +293,28 @@ class SignupForm extends React.Component {
                 email: values.email,
                 phone: values.phone,
                 age: values.age,
+                gender: values.gender,
                 birthdate: values.birthdate,
                 city: values.city,
                 topExperience: values.topExperience,
-                // otherMentalHealth: values.otherMentalHealth,
                 explanation: values.explanation,
                 durationExperienced: values.durationExperienced,
                 minAge: values.minAge,
                 maxAge: values.maxAge,
                 genderPref: genderPref,
                 additionalPref: values.additionalPref,
-                acceptedTerms: values.acceptedTerms
+                acceptedTerms: values.acceptedTerms,
+                matched: false,
+                time: Date().toLocaleString()
               }
               axios
               .post('http://localhost:8082/add-user', data)
               .then(res => {
                 console.log('Added new user!')
-                //clear out state???
+                this.setState({submit: 'Thanks for submitting! Have a question about what\'s next? Check out our FAQs.'})
               })
               .catch(err => {
+                this.setState({submit: 'Sorry, our server ran into an issue, and your submission was not received. Please try again.'})
                 console.log("Error in adding new post-it!");
                 console.error(err);
               })
@@ -383,7 +395,7 @@ class SignupForm extends React.Component {
               <option value="woodside">Woodside</option>
               <option value="other-location">Other</option>
             </MySelect>
-            <p class='request-other-link'>Not seeing your city? Let us know to add your city to the list <a href='/contact'>here</a>.</p>
+            <p class='request-other-link'>Not seeing your city? Let us know to add your city to the list <Link class='navLink' to='/contact'>here</Link>.</p>
 
   
   
@@ -403,78 +415,8 @@ class SignupForm extends React.Component {
               <option value="physAssault">experience physical assault</option>
               <option value="domAbuse"> experience domestic abuse</option>
             </MySelect>
-            <p class='request-other-link'>Not seeing an option that fits you? Let us know to add it to the list <a href='/contact'>here</a>.</p>
+            <p class='request-other-link'>Not seeing an option that fits you? Let us know to add it to the list <Link class='navLink' to='/contact'>here</Link>.</p>
 
-            {/* 
-            <div id="checkbox-group"><h6>I'd like my buddy to <strong>ALSO</strong> know what it's like to... (Choose the experience that is most important to you)</h6></div>
-            <div role="group" aria-labelledby="checkbox-group">
-              <label>
-                <Field type="checkbox" name="experiences" value="anxiety" />
-                have anxiety
-              </label>
-              <label>
-                <Field type="checkbox" name="experiences" value="depression" />
-                have depression
-              </label>
-              <label>
-                <Field type="checkbox" name="experiences" value="ocd" />
-                have OCD
-              </label>
-              <label>
-                <Field type="checkbox" name="experiences" value="schizophrenia" />
-                have schizophrenia
-              </label>
-              <label>
-                <Field type="checkbox" name="experiences" value="psychosis" />
-                have psychosis
-              </label>
-              <label>
-                <Field type="checkbox" name="experiences" value="anorexia" />
-                have anorexia
-              </label>
-              <label>
-                <Field type="checkbox" name="experiences" value="bulimia" />
-                have bulimia
-              </label>
-              <label>
-                <Field type="checkbox" name="experiences" value="adhd" />
-                have ADHD
-              </label>
-              <label>
-                <Field type="checkbox" name="experiences" value="bipolar" />
-                have Bipolar Disorder
-              </label>
-              <label>
-                <Field type="checkbox" name="experiences" value="survivedSuicide" />
-                survive suicide
-              </label>
-              <label>
-                <Field type="checkbox" name="experiences" value="lostSuicide" />
-                lose a family member to suicide
-              </label>
-              <label>
-                <Field type="checkbox" name="experiences" value="bullied" />
-                experience bullying
-              </label>
-              <label>
-                <Field type="checkbox" name="experiences" value="physAssault" />
-                experience physical assault
-              </label>
-              <label>
-                <Field type="checkbox" name="experiences" value="domAbuse" />
-                experience domestic abuse
-              </label>
-              <label>
-                <Field type="checkbox" name="experiences" value="otherMentalHealth" />
-                <MyTextInput
-                  label="Other: "
-                  name="otherMentalHealth"
-                  type="text"
-                />
-              </label>
-            </div> */}
-  
-          {/* // When (approximately) did you last experience the option(s) you selected above? */}
             <MySelect label="How long has the option you selected above been impacting your life?" name="durationExperienced">
               <option value="">Select a time</option>
               <option value="fewdays">A few days</option>
@@ -506,18 +448,7 @@ class SignupForm extends React.Component {
               placeholder="17"
             />
   
-            {/* <div class="local-question">
-              <h6>Want your buddy to be local?</h6>
-              <MyRadioBox name="localY">
-                Yes
-              </MyRadioBox>
-              <MyRadioBox name="localN">
-                No
-              </MyRadioBox>
-              <MyRadioBox name="localNoPref">
-                No preference
-              </MyRadioBox>
-            </div> */}
+       
   
             <div id="checkbox-group"><h6>Gender preferences</h6></div>
             <div role="group" aria-labelledby="checkbox-group">
@@ -539,22 +470,7 @@ class SignupForm extends React.Component {
               </label>
             </div>
   
-            {/* <div class="gender-question">
-              <h6>Gender preferences</h6>
-              <MyCheckbox name="genderPrefFemale">
-                Female
-              </MyCheckbox>
-              <MyCheckbox name="genderPrefMale">
-                Male
-              </MyCheckbox>
-              <MyCheckbox name="genderPrefNonbinary">
-                Nonbinary
-              </MyCheckbox>
-              <MyCheckbox name="genderNoPref">
-                No preference
-              </MyCheckbox>
-            </div> */}
-  
+           
             <MyTextArea
               label="Optional: Anything else that we should take into consideration?"
               name="additionalPref"
@@ -562,7 +478,7 @@ class SignupForm extends React.Component {
             />
             
             <MyCheckbox name="acceptedTerms">
-              I accept the <a id='bottomTerms' href="/terms">terms and conditions</a>.
+              I accept the <Link class='bottomTerms' to='/terms'>terms and conditions</Link>.
             </MyCheckbox>
   
             <button type="submit" >Submit</button>

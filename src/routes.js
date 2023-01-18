@@ -1,9 +1,9 @@
 import React from 'react';
 import './index.css';
-import { Route, Routes, Redirect } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import App from './App';
 import Terms from './components/Terms';
-import Alg from './components/Algorithm'
+import Alg from './components/Alg2.js'
 import Privacy from './components/Privacy'
 import NavBar from './components/NavBar.js';
 import Form from './components/Form.js'

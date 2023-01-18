@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import "./styles.css";
 import { Link } from 'react-router-dom';
-
-//https://codesandbox.io/s/formik-v2-tutorial-final-ge1pt
-//https://formik.org/docs/examples/checkboxes
-
 
 /*
 TODO:
@@ -12,17 +8,18 @@ TODO:
 // add a backup experience
 - enable ppl to update their response
 - fix the 404 errors on vercel
-- create backend algorithm - using python? maybe need to use hooks, look at my comments in algorithm
+- create backend algorithm 
+
+- add question of "write message to future buddy"
+- 1 through 10, how much does it impact your life?
 
 - add better description of project on site 
-- change branding to add "youth" component, add more experiences
 -  add a note to say, hey, please don't lie about your age here.
 
 
 - refer to HTML bootstrap site i made
 - center mainbody div content 
 - add footer created by charlotte
-
 
 - age and bday should match, find a way to use values.age to validate the birthdate in yup
 
@@ -42,6 +39,13 @@ cd build
 vercel...
 once deployed, make immediate changes
 vercel --prod
+
+
+https://codesandbox.io/s/formik-v2-tutorial-final-ge1pt
+https://formik.org/docs/examples/checkboxes
+https://dashboard.emailjs.com/admin/templates/xl5c6us
+
+
 */ 
 
 

@@ -28,6 +28,11 @@ const userSchema = new Schema({
         required: false,
         unique: false
     },
+    gender: {
+        type: String,
+        required: false,
+        unique: false
+    },
     birthdate: {
         type: Date,
         required: false,
@@ -77,7 +82,17 @@ const userSchema = new Schema({
         type: Boolean,
         required: false,
         unique: false
-    }
+    },
+    matched: {
+        type: Boolean,
+        required: false,
+        unique: false
+    },
+    time: {
+        type: String,
+        required: false,
+        unique: false
+    },
 });
 
 

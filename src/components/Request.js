@@ -1,7 +1,15 @@
 import React from 'react';
-import { Formik, Field, Form, useField } from 'formik';
+import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
+import emailjs from '@emailjs/browser';
+
+
+/*
+
+take out formik, redeploy
+
+
+*/
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -33,12 +41,16 @@ const MyTextArea = ({ label, ...props }) => {
 class RequestContact extends React.Component {
   constructor() {
     super();
+    this.state={
+      submit: ''
+    }
   }
 
   handleClick = () => {
     console.log("Button was clicked!");
   }
   
+
 
   render() {
     return(
@@ -59,17 +71,27 @@ class RequestContact extends React.Component {
            
           })}
   
-          onSubmit={(values, { setSubmitting, resetForm }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+          onSubmit={(values, { resetForm }) => {
+            // setTimeout(() => {
+            //   alert(JSON.stringify(values, null, 2));
+            //   setSubmitting(false);
+            // }, 400);
             resetForm();
+            this.setState({submit: 'Thanks for submitting!'})
             
-  
-            
-            
-        
+            const templateParams = {
+              from_name: values.name, // imported from axios and thispost
+              from_email: values.email, // imported from axios and thispost
+              message: values.message, // imported from axios and thispost
+          };
+
+            emailjs.send('service_kp2l21l', 'template_wshf1sf', templateParams, 'wQwbGwM4OG2rj7J3g')
+            .then((res) => {
+                console.log('SUCCESS!', res.status, res.text);
+            }, (error) => {
+                console.log(error.text);
+            });
+
           }}
         >
     
@@ -97,6 +119,7 @@ class RequestContact extends React.Component {
             />
 
             <button type="submit" >Submit</button>
+            <div>{this.state.submit}</div>
           </Form>
 
           </Formik>

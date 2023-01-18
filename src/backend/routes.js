@@ -39,6 +39,79 @@ const UserSchema = require('./User.js')
           })
     })
 
+/*------------------------------
+@Route: Get /users
+@Description:
+  Retrieves the entire db--so all the users and their posts in the database
+  request:
+    request params: none
+    request body: none
+  response:
+    prints every user and all of the users account info and posts
+*/
+router.get('/users', (req, res) => {
+  UserSchema.find()
+  .then(user => {
+    console.log("Printing all the users!")
+    console.log(user)
+    res.json(user)
+  })
+  .catch(err => {
+    console.error(err)
+  })
+})
+
+/*------------------------------
+@Route: Put /matched
+@Description:
+  Updates the user's matched
+  request:
+    request params: none;
+    request body: JSON object;
+      must include id, matched
+  response:
+    says that the name has been updated and changes the name
+*/
+router.put('/matched', (req, res) => {
+  UserSchema.findByIdAndUpdate(req.body.id, {matched: req.body.matched}, {returnDocument: 'after'})
+    .then(user => {
+      console.log('updated the matched!')
+      res.json(user)
+    })
+    .catch(err => {
+      console.error(err)
+    })
+})
+
+
+/*------------------------------
+@Route: Delete /id
+@Description:
+  Deletes the user based on the id
+  request:
+    request params: id;
+      id must be in body
+    request body: none
+  response:
+    deletes the user and says that the deletion has happened
+*/
+router.delete('/id', (req, res) => {
+  UserSchema.findByIdAndRemove(req.body.id)
+    .then(user => {
+      console.log('User is deleted!')
+      res.json(user)
+    })
+    .catch(err => {
+        console.error(err)
+    })
+})
+
+
+/*---------------IN USE ABOVE---------------
+
+
+
+
 
 
 
@@ -88,28 +161,6 @@ const UserSchema = require('./User.js')
     
  
 
-
-/*------------------------------
-@Route: Get /users
-@Description:
-  Retrieves the entire db--so all the users and their posts in the database
-  request:
-    request params: none
-    request body: none
-  response:
-    prints every user and all of the users account info and posts
-*/
-router.get('/users', (req, res) => {
-    UserSchema.find()
-    .then(user => {
-      console.log("Printing all the users!")
-      console.log(user)
-      res.json(user)
-    })
-    .catch(err => {
-      console.error(err)
-    })
-})
 
 /*------------------------------
 @Route: Get /contact
