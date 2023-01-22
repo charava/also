@@ -3,7 +3,8 @@ import { Formik, Field, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import emailjs from '@emailjs/browser';
+// import api from 'src/api/axios.js';
 
 const MyTextInput = ({ label, ...props }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -93,37 +94,28 @@ class SignupForm extends React.Component {
   }
 
   componentDidMount() {
-    // const body = {
-    //     id: "63c4b0533e60435bd6f9894c"
-    // }
-
-    // axios
-    //   .delete('http://localhost:8082/id', body)
-    //   .then(res => {
-    //     console.log('done')
-    //   })
-    //   .catch(err =>{
-    //     console.log('Error from fetching database');
-    //   })
-    
+ 
 
     axios
-      .get('http://localhost:8082/users')
+      // .get('http://127.0.0.1:27017/users')
+      .get('http://localhost:8082/users') // add a conditional that tells you if its local or production
       .then(res => {
         let userInfo = res.data.map((data) => [data._id,data.firstName, data.lastName,data.email,data.phone]);
         this.setState({
-            prevUsers: userInfo
+            prevUsers: userInfo,
           })
       })
       .catch(err =>{
         console.log('Error from fetching database');
+        this.setState({
+          submit: '',
+        })
       })
     };
 
 
 
     alreadyEmail = (email) => {
-        console.log(this.state.prevUsers)
         let emailList = this.state.prevUsers.map((data) => data[3]);
         if (emailList.includes(email)) {
             return true;
@@ -146,8 +138,8 @@ class SignupForm extends React.Component {
   render() {
     return (
       <div class='container'>
-        <h3>Find a buddy in your community who shares a similar mental health or trauma experience</h3>
-        <p>We help youth ages 14-18 find someone in their community to talk to who shares a first-hand understanding of their mental health challenge or trauma. Our algorithm matches people based on the similar situations, identities (age, gender, etc), interests, and location. For more information, visit our <a href='/faqs'>FAQs</a>.</p>
+        <h2>Finally have a friend to talk to who "just gets it."</h2>
+        <p>We match youth ages 14-18 with a local buddy who shares a first-hand understanding of their mental health challenge or experience. Our algorithm identifies buddy-pairs based on their specific mental health challenge or trauma, identity (age, gender, etc), interests, and location. For more information, visit our <Link class='formLink' to='/faqs'>FAQs</Link>.</p>
         <p class='smallwarning'>Please note, you can only submit the form once.</p>
    
         
@@ -179,6 +171,9 @@ class SignupForm extends React.Component {
               .required('Required'),
             email: Yup.string()
               .email('Invalid email address')
+              .required('Required'),
+            pronouns: Yup.string()
+              .max(20, 'Must be 20 characters or less')
               .required('Required'),
             phone: Yup.string()
               .max(10, 'Must be 10 digits')
@@ -215,6 +210,11 @@ class SignupForm extends React.Component {
                 ['anxiety', 'depression', 'ocd', 'schizophrenia', 'anorexia', 'bulimia', 'adhd', 'bipolar', 'surviveSuicide', 'lostSuicide', 'bullied', 'physAssault', 'domAbuse'], 
                 'Please select an option'
               ),
+            durationExperienced: Yup.string()
+              .oneOf(
+                ['fewdays','fewweeks','fewmonths','oneyear','twoyears','threeplusyears','wholelife'],
+                'Please select an option'
+              ),
             minAge: Yup.number()
               .min(14, "Minimum must be between 14-18")
               .max(18, "Minimum must be between 14-18")
@@ -243,42 +243,27 @@ class SignupForm extends React.Component {
             
   
             if (values.age > 18) {
-            //   setTimeout(() => {
-            //     alert(JSON.stringify('Sorry, only youth ages 14-18 are allowed to be matched.', null, 2));
-            //     setSubmitting(false);
-            //   }, 400);
-
+           
               this.setState({submit: 'Your submission will not be recieved; only youth ages 14-18 are allowed to be matched.'})
               
             } else if  (values.age < 14) {
-            //   setTimeout(() => {
-            //     alert(JSON.stringify('Sorry, we only allow youth over the age of 14 to be matched.', null, 2));
-            //     setSubmitting(false);
-            //   }, 400);
+            
               this.setState({submit: 'Your submission will not be recieved; only youth ages 14-18 are allowed to be matched.'})
 
   
             } else if (this.alreadyEmail(values.email)) {
-                // setTimeout(() => {
-                //     alert(JSON.stringify('Someone with you email has already submitted to this form. If this is not you, please email charcharrosario@gmail for support.', null, 2));
-                //     setSubmitting(false);
-                //     }, 400);
-                this.setState({submit: 'Someone with you email has already submitted to this form. If this is not you, please email charcharrosario@gmail for support.'})
+              
+                this.setState({submit: 'Your submission will not be recieved, becuase someone with you email has already submitted to this form. If this is not you, please email charcharrosario@gmail for support.'})
 
 
             } else if (this.alreadyPhone(values.phone)) {
-                // setTimeout(() => {
-                //     alert(JSON.stringify('Someone with your phone has already submitted to this form. If this is not you, please email charcharrosario@gmail.com for support.', null, 2));
-                //     setSubmitting(false);
-                //     }, 400);
-                this.setState({submit: 'Someone with your phone already submitted to this form. If this is not you, please email charcharrosario@gmail.com for support.'})
+               
+                this.setState({submit: 'Your submission will not be recieved, becuase someone with your phone already submitted to this form. If this is not you, please email charcharrosario@gmail.com for support.'})
             
 
             } else {
-            //   setTimeout(() => {
-            //     alert(JSON.stringify('Thanks for submitting! Look out for an email over the next two months to see if you\'ve been matched.', null, 2));
-            //     setSubmitting(false);
-            //   }, 400);
+              resetForm()
+            
   
               let genderPref = values.genderPref;
 
@@ -294,6 +279,7 @@ class SignupForm extends React.Component {
                 phone: values.phone,
                 age: values.age,
                 gender: values.gender,
+                pronouns: values.pronouns,
                 birthdate: values.birthdate,
                 city: values.city,
                 topExperience: values.topExperience,
@@ -307,16 +293,33 @@ class SignupForm extends React.Component {
                 matched: false,
                 time: Date().toLocaleString()
               }
+
+          
+  
+              // emailjs.send('service_kp2l21l', 'template_hwroh8j', data, 'wQwbGwM4OG2rj7J3g')
+              // .then((res) => {
+              //     // console.log('SUCCESS!', res.status, res.text);
+              //     this.setState({submit: 'Thanks for submitting! Have a question about what\'s next? Check out our FAQs.'})
+
+              // }, (error) => {
+              //     // console.log(error.text);
+              //     this.setState({submit: 'Sorry, our server ran into an issue, and your submission was not received. Please try again.'})
+
+              // });
+
+
               axios
               .post('http://localhost:8082/add-user', data)
               .then(res => {
-                console.log('Added new user!')
+                // console.log('Added new user!')
+                
                 this.setState({submit: 'Thanks for submitting! Have a question about what\'s next? Check out our FAQs.'})
               })
               .catch(err => {
+                
                 this.setState({submit: 'Sorry, our server ran into an issue, and your submission was not received. Please try again.'})
-                console.log("Error in adding new post-it!");
-                console.error(err);
+                // console.log("Error in adding new post-it!");
+                // console.error(err);
               })
             }
         
@@ -362,6 +365,14 @@ class SignupForm extends React.Component {
               name="birthdate"
               type="date"
             />
+            
+            <MyTextInput
+              label="Pronouns"
+              name="pronouns"
+              type="text"
+              placeholder="She/Her/Hers"
+            />
+
             <MySelect label="Gender" name="gender">
               <option value="">Select your gender</option>
               <option value="female">Female</option>
@@ -369,6 +380,8 @@ class SignupForm extends React.Component {
               <option value="nonbinary">Nonbinary</option>
               <option value="other-gender">Other</option>
             </MySelect>
+
+            
   
             <MySelect label="City" name="city">
               <option value="">Select your city</option>
@@ -395,7 +408,7 @@ class SignupForm extends React.Component {
               <option value="woodside">Woodside</option>
               <option value="other-location">Other</option>
             </MySelect>
-            <p class='request-other-link'>Not seeing your city? Let us know to add your city to the list <Link class='navLink' to='/contact'>here</Link>.</p>
+            <p class='request-other-link'>Not seeing your city? Let us know to add your city to the list <Link class='formLink' to='/contact'>here</Link>.</p>
 
   
   
@@ -415,7 +428,7 @@ class SignupForm extends React.Component {
               <option value="physAssault">experience physical assault</option>
               <option value="domAbuse"> experience domestic abuse</option>
             </MySelect>
-            <p class='request-other-link'>Not seeing an option that fits you? Let us know to add it to the list <Link class='navLink' to='/contact'>here</Link>.</p>
+            <p class='request-other-link'>Not seeing an option that fits you? Let us know to add it to the list <Link class='formLink' to='/contact'>here</Link>.</p>
 
             <MySelect label="How long has the option you selected above been impacting your life?" name="durationExperienced">
               <option value="">Select a time</option>
@@ -445,7 +458,7 @@ class SignupForm extends React.Component {
               label="I'd like the maximum age of my buddy to be..."
               name="maxAge"
               type="number"
-              placeholder="17"
+              placeholder="18"
             />
   
        
@@ -478,7 +491,7 @@ class SignupForm extends React.Component {
             />
             
             <MyCheckbox name="acceptedTerms">
-              I accept the <Link class='bottomTerms' to='/terms'>terms and conditions</Link>.
+              I accept the <Link class='bottomLink' to='/terms'>terms and conditions</Link>.
             </MyCheckbox>
   
             <button type="submit" >Submit</button>

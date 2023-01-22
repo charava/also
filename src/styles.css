@@ -96,6 +96,7 @@
     font-size: 3rem; /*2.441rem;*/
     letter-spacing: -0.12rem;
     line-height: 1.2;
+    color: black;
   }
  
   
@@ -141,13 +142,15 @@
     text-decoration-thickness: 2px;
   }
   
-
-  #bottomTerms {
+  .bottomLink {
     padding-left: 0.5vh;
-    color: black;
   }
 
-  #bottomTerms:hover {
+  .bottomLink:hover {
+    color: #3182ce;
+  }
+
+  .formLink:hover {
     color: #3182ce;
   }
 
@@ -564,7 +567,6 @@
   ul {
     margin: 0;
     padding: 0 1px;
-    list-style: disc outside;
     font-variant-numeric: tabular-nums;
   }
   
@@ -578,10 +580,10 @@
     margin-top: 0;
     margin-bottom: 1.563rem;
   }
-  
+/*   
   li {
     list-style-position: inside;
-  }
+  } */
   
   /* Keyboard
   ––––––––––––––––––––––––––––––––– */
@@ -848,9 +850,6 @@
     }
   }
 
-.request-other-link {
-    font-size: 0.7rem;
-}
 
 .Footer {
     position:absolute;

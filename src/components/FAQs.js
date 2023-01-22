@@ -11,7 +11,7 @@ class FAQs extends React.Component {
        
         <h1>Frequently Asked Questions</h1>
         <h3>How long until I am matched?</h3>
-        <p>We match people on a rolling basis. If no one fits the minimum criteria for a match (i.e. same experience, in age-range, fits gender-preferences) by the end of 3 months, we will connect you with the next closest match. If you have been waiting past 3 months, please email charcharrosario@gmail.com.</p>
+        <p>We match people on a rolling basis. If no one fits the minimum criteria for a match (i.e. same experience, in age-range, fits gender-preferences) by the end of 3 months, we will connect you with the next closest match. If you have been waiting past 3 months, please email charlottearosario@gmail.com.</p>
         
         <h3>How do you decide who I’ll be matched with?</h3>
         <p>Everyone has a different identity, background, interests, and experiences. This means that everyone prioritizes different aspects of a person when they look for a friend or person to confide in. Your response to the form enlightens us with what is important to you. We've developed an algorithm that analyzes the selected choices from the form and looks for overlap or similar answer choices between you and another person.</p>

@@ -10,6 +10,7 @@ import Form from './components/Form.js'
 import FAQs from './components/FAQs.js'
 import Footer from './components/Footer.js';
 import RequestContact from './components/Request.js';
+import About from './components/About.js';
 
 export const RoutesList = () => {
   return (
@@ -30,6 +31,8 @@ export const RoutesList = () => {
             <Route path="/privacy" element= {<Privacy />}>     
             </Route>
             <Route path="/contact" element= {<RequestContact />}>     
+            </Route>
+            <Route path="/about" element= {<About />}>     
             </Route>
             <Route path="*" element={ <p>Uh oh! There's nothing here! </p>} />
         </Routes>

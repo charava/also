@@ -5,20 +5,30 @@ import { Link } from 'react-router-dom';
 /*
 TODO:
 
-// add a backup experience
+
+- add submissions through localhosted app
+- make python alg more complex
+- create spreadsheet for submissions
+- import csv
+- run in colab
+
+- add dark mode styling to website.
+
+- figure out baseURL axios issue  / book morgan meeting
+- add a backup experience
+
+- add more space after big button
+- create backend algorithm - or connect to external python program 
+
+- Add automated email once ppl submit sayinf ty and sit back and relax
+
+
+- add a "in crisis, please call.... or use... ALSO is not intended to replace professional support. if you feel at risk or at harm."
 - enable ppl to update their response
-- fix the 404 errors on vercel
-- create backend algorithm 
 
 - add question of "write message to future buddy"
 - 1 through 10, how much does it impact your life?
 
-- add better description of project on site 
--  add a note to say, hey, please don't lie about your age here.
-
-
-- refer to HTML bootstrap site i made
-- center mainbody div content 
 - add footer created by charlotte
 
 - age and bday should match, find a way to use values.age to validate the birthdate in yup
@@ -60,7 +70,13 @@ class App extends React.Component {
   render() {
     return (
       <div class='mainBody'>
-        <h1>You deserve a friend who can understand what you're going through.</h1>
+        {/* <h1>Looking for a friend to talk to who shares a similar challenge or experience?</h1> */}
+        <h1>Looking for a friend to talk to who shares a similar mental health challenge or experience?</h1>
+
+        {/* <h1>Looking for a friend to talk to who can understand what you're going through?</h1> */}
+        {/* <h3>We match youth with buddies who share similar mental health challenges or trauma.</h3> */}
+
+        {/* <h1>You deserve a friend who can understand what you're going through.</h1> */}
         {/* buddy matching for youth mental health */}
         <h3>Fill out our short form.  Find a local buddy.  It's that easy.</h3>
         <p class='smallBio'>ALSO is the first-ever peer-support platform that helps youth with mental health challenges or trauma find buddies in their communtiy with similar experiences. </p>

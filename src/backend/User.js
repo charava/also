@@ -33,6 +33,11 @@ const userSchema = new Schema({
         required: false,
         unique: false
     },
+    pronouns: {
+        type: String,
+        required: false,
+        unique: false
+    },
     birthdate: {
         type: Date,
         required: false,

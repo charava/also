@@ -8,8 +8,8 @@ class Privacy extends React.Component {
     return(
       <div class='container'>
         <h1>Privacy Policy</h1>
-        <h5>Welcome to ALSO, the first-ever alternative community-based peer support platform that connects youth with buddies who share relatable mental health or family experiences.</h5>
-        <p>This Privacy Policy explains how our alternative community-based peer support platform, "ALSO", collects, uses, and protects the personal information of our users. By using our platform, you consent to the collection, use, and sharing of your personal information as described in this Privacy Policy.</p>
+        {/* <h5>Welcome to ALSO, the first-ever alternative community-based peer support platform that connects youth with buddies who share relatable mental health or family experiences.</h5> */}
+        <h5>This Privacy Policy explains how our alternative community-based peer support platform, "ALSO", collects, uses, and protects the personal information of our users. By using our platform, you consent to the collection, use, and sharing of your personal information as described in this Privacy Policy.</h5>
         <h2>Collection of Personal Information</h2>
         <p>We collect personal information that you provide to us directly, such as when you create a profile, send us a message, or participate in discussions or surveys. This personal information may include your name, email address, phone number, age, gender, city of residence, and any other information you choose to provide.</p>
         <p>We may also collect personal information from third parties, such as social media platforms or other websites that you link to your profile. This personal information may include your name, profile picture, and any other information that you have made public on these platforms.</p>

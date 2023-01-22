@@ -4,14 +4,16 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const routes = require('./routes')
 const database = require('./also-database');
+// const dotenv = require('dotenv').config()
 
 const app = express()
-const port = 8082
+const port = process.env.PORT || 8082
 
 app.use(cors())
 app.use(bodyParser.json())
 //moved all API stuff to routes/routes.js
 app.use(routes)
+// app.use(`${process.env.API_BASE_URL}/routes`)
 
 
 
