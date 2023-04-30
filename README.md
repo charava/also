@@ -1,4 +1,4 @@
-# The *ALSO* Project
+# The ALSO Project
 
 ### Feel like no one at school understands what you're dealing with at home? Looking for a friend with a relatable experience of loss or adversity? 
 
