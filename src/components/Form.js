@@ -139,7 +139,7 @@ class SignupForm extends React.Component {
     return (
       <div class='container'>
         <h2>Finally have a friend to talk to who "just gets it."</h2>
-        <p>We match youth ages 14-18 with a local buddy who shares a first-hand understanding of their mental health challenge or experience. Our algorithm identifies buddy-pairs based on their specific mental health challenge or trauma, identity (age, gender, etc), interests, and location. For more information, visit our <Link class='formLink' to='/faqs'>FAQs</Link>.</p>
+        <p>We match youth ages 14-18 with a buddy in their community who shares a first-hand understanding of the challenges they face at home. Our algorithm identifies buddy-pairs based on their specific experience of loss or adversity (ex: parental divorce, chronic illness, financial hardship, single-parent household, etc), identity (age, gender, etc), interests, and location. For more information, visit our <Link class='formLink' to='/faqs'>FAQs</Link>.</p>
         <p class='smallwarning'>Please note, you can only submit the form once.</p>
    
         
@@ -411,8 +411,13 @@ class SignupForm extends React.Component {
             <p class='request-other-link'>Not seeing your city? Let us know to add your city to the list <Link class='formLink' to='/contact'>here</Link>.</p>
 
   
-  
-            <MySelect label="I'd like my buddy to ALSO know what it's like to... (Choose one)" name="topExperience">
+            <MyTextArea
+                label="Please describe your experience of loss or adversity here: "
+                name="explanation"
+                type="text"
+            />
+
+            {/* <MySelect label="I'd like my buddy to ALSO know what it's like to... (Choose one)" name="topExperience">
               <option value="">Select one experience</option>
               <option value="anxiety">have anxiety</option>
               <option value="depression">have depression</option>
@@ -428,9 +433,9 @@ class SignupForm extends React.Component {
               <option value="physAssault">experience physical assault</option>
               <option value="domAbuse"> experience domestic abuse</option>
             </MySelect>
-            <p class='request-other-link'>Not seeing an option that fits you? Let us know to add it to the list <Link class='formLink' to='/contact'>here</Link>.</p>
+            <p class='request-other-link'>Not seeing an option that fits you? Let us know to add it to the list <Link class='formLink' to='/contact'>here</Link>.</p> */}
 
-            <MySelect label="How long has the option you selected above been impacting your life?" name="durationExperienced">
+            <MySelect label="How long has this experience been impacting your life?" name="durationExperienced">
               <option value="">Select a time</option>
               <option value="fewdays">A few days</option>
               <option value="fewweeks">A few weeks</option>
@@ -442,11 +447,7 @@ class SignupForm extends React.Component {
             </MySelect>
   
   
-            <MyTextArea
-                label="Please elaborate on your situtation here: "
-                name="explanation"
-                type="text"
-            />
+            
   
             <MyTextInput
               label="I'd like the minimum age of my buddy to be..."

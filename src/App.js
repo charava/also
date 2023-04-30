@@ -71,7 +71,9 @@ class App extends React.Component {
     return (
       <div class='mainBody'>
         {/* <h1>Looking for a friend to talk to who shares a similar challenge or experience?</h1> */}
-        <h1>Looking for a friend to talk to who shares a similar mental health challenge or experience?</h1>
+        {/* <h1>Looking for a friend to talk to who shares a similar mental health challenge or experience?</h1> */}
+        <h1>Feel like no one at school understands what you're dealing with at home? Looking for a friend with a relatable experience of loss or adversity?</h1>
+
 
         {/* <h1>Looking for a friend to talk to who can understand what you're going through?</h1> */}
         {/* <h3>We match youth with buddies who share similar mental health challenges or trauma.</h3> */}
@@ -79,7 +81,9 @@ class App extends React.Component {
         {/* <h1>You deserve a friend who can understand what you're going through.</h1> */}
         {/* buddy matching for youth mental health */}
         <h3>Fill out our short form.  Find a local buddy.  It's that easy.</h3>
-        <p class='smallBio'>ALSO is the first-ever peer-support platform that helps youth with mental health challenges or trauma find buddies in their communtiy with similar experiences. </p>
+        <p class='smallBio'>ALSO is the first peer support platform that intelligently matches youth with local buddies who share relatable experiences of loss or adversity in their families. </p>
+
+        {/* <p class='smallBio'>ALSO is the first-ever peer-support platform that helps youth with mental health challenges or trauma find buddies in their communtiy with similar experiences. </p> */}
         <Link to="/form"><button class='buddy-button'>Find your buddy</button></Link>
 
     </div>
