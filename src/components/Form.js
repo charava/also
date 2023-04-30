@@ -140,7 +140,7 @@ class SignupForm extends React.Component {
       <div class='container'>
         <h2>Finally have a friend to talk to who "just gets it."</h2>
         <p>We match youth ages 14-18 with a buddy in their community who shares a first-hand experience of the challenges they face at home. Our algorithm identifies buddy-pairs based on their specific experience of loss or adversity (ex: parental divorce, chronic illness, financial hardship, single-parent household, etc), identity (age, gender, etc), interests, and location. For more information, visit our <Link class='formLink' to='/faqs'>FAQs</Link>.</p>
-        <p class='smallwarning'>Please note, you can only submit the form once.</p>
+        <p class='smallwarning'>Please note that you can only submit the form once.</p>
    
         
         <Formik
