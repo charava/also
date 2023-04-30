@@ -72,7 +72,7 @@ class App extends React.Component {
       <div class='mainBody'>
         {/* <h1>Looking for a friend to talk to who shares a similar challenge or experience?</h1> */}
         {/* <h1>Looking for a friend to talk to who shares a similar mental health challenge or experience?</h1> */}
-        <h1>Feel like no one at school understands what you're dealing with at home? Looking for a friend with a relatable experience of loss or adversity?</h1>
+        <h1>Feel like no one at school understands what you're dealing with at home? Looking for a friend who also has the same experience of loss or adversity?</h1>
 
 
         {/* <h1>Looking for a friend to talk to who can understand what you're going through?</h1> */}
