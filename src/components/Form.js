@@ -9,7 +9,6 @@ import emailjs from '@emailjs/browser';
 const MyTextInput = ({ label, ...props }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input>. We can use field meta to show an error
-  // message if the field is invalid and it has been touched (i.e. visited)
   const [field, meta] = useField(props);
   return (
     <>
@@ -47,11 +46,7 @@ const MyDateInput = ({ label, ...props }) => {
 };
 const MyCheckbox = ({ children, ...props }) => {
   // React treats radios and checkbox inputs differently other input types, select, and textarea.
-  // Formik does this too! When you specify `type` to useField(), it will
-  // return the correct bag of props for you -- a `checked` prop will be included
-  // in `field` alongside `name`, `value`, `onChange`, and `onBlur`
   const [field, meta] = useField({ ...props, type: 'checkbox' });
-  
   return (
     <div>
       <label className="checkbox-input">
@@ -65,11 +60,8 @@ const MyCheckbox = ({ children, ...props }) => {
   );
 };
 
-
-
 const MySelect = ({ label, ...props }) => {
   const [field, meta] = useField(props);
-  
   return (
     <div>
       <label htmlFor={props.id || props.name}>{label}</label>
@@ -80,8 +72,6 @@ const MySelect = ({ label, ...props }) => {
     </div>
   );
 };
-
-
 
 
 class SignupForm extends React.Component {
@@ -104,6 +94,7 @@ class SignupForm extends React.Component {
         this.setState({
             prevUsers: userInfo,
           })
+      
       })
       .catch(err =>{
         console.log('Error from fetching database');
@@ -123,7 +114,6 @@ class SignupForm extends React.Component {
             return false;
         }
     }
-
     alreadyPhone = (phone) => {
         let phoneList = this.state.prevUsers.map((data) => data[4]);
         if (phoneList.includes(phone)) {
@@ -223,16 +213,12 @@ class SignupForm extends React.Component {
               .min(14, "Maximum must be between 14-18")
               .max(18, "Maximum must be between 14-18")
               .required("Age is required"),
-  
             acceptedTerms: Yup.boolean()
               .required('Required')
               .oneOf([true], 'You must accept the terms and conditions.'),
             checked: Yup.array() // not working
               .of(Yup.string())
               .max(3, 'You can only choose up to 3 options')
-              
-                
-           
           })}
   
           onSubmit={(values, { resetForm }) => {
@@ -240,33 +226,19 @@ class SignupForm extends React.Component {
             //   alert(JSON.stringify(values, null, 2));
             //   setSubmitting(false);
             // }, 400);
-            
-  
             if (values.age > 18) {
-           
+              this.setState({submit: 'Your submission will not be recieved; only youth ages 14-18 are allowed to be matched.'})  
+            } else if  (values.age < 14) {    
               this.setState({submit: 'Your submission will not be recieved; only youth ages 14-18 are allowed to be matched.'})
-              
-            } else if  (values.age < 14) {
-            
-              this.setState({submit: 'Your submission will not be recieved; only youth ages 14-18 are allowed to be matched.'})
-
-  
             } else if (this.alreadyEmail(values.email)) {
-              
                 this.setState({submit: 'Your submission will not be recieved, becuase someone with you email has already submitted to this form. If this is not you, please email charcharrosario@gmail for support.'})
-
-
             } else if (this.alreadyPhone(values.phone)) {
-               
                 this.setState({submit: 'Your submission will not be recieved, becuase someone with your phone already submitted to this form. If this is not you, please email charcharrosario@gmail.com for support.'})
-            
-
             } else {
               resetForm()
             
   
               let genderPref = values.genderPref;
-
               if (genderPref.includes('noPref')) {
                 genderPref = ['noPref']
               }
@@ -464,7 +436,7 @@ class SignupForm extends React.Component {
   
        
   
-            <div id="checkbox-group"><h6>Gender preferences</h6></div>
+            <div id="checkbox-group"><h6>Gender preferences for your buddy</h6></div>
             <div role="group" aria-labelledby="checkbox-group">
               <label>
                 <Field type="checkbox" name="genderPref" value="female" />

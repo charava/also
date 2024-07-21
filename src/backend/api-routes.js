@@ -272,28 +272,6 @@ router.get('/posts', (req, res) => {
 
 
 
-/*------------------------------
-@Route: Get /users
-@Description:
-  Retrieves the entire db--so all the users and their posts in the database
-  request:
-    request params: none
-    request body: none
-  response:
-    prints every user and all of the users account info and posts
-*/
-router.get('/users', (req, res) => {
-    UserSchema.find()
-    .then(user => {
-      console.log("Printing all the users!")
-      console.log(user)
-      res.json(user)
-    })
-    .catch(err => {
-      console.error(err)
-    })
-})
-
 
 
  /*------------------------------

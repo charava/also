@@ -3,7 +3,6 @@ import './index.css';
 import { Route, Routes } from 'react-router-dom';
 import App from './App';
 import Terms from './components/Terms';
-import Alg from './components/Alg2.js'
 import Privacy from './components/Privacy'
 import NavBar from './components/NavBar.js';
 import Form from './components/Form.js'
@@ -25,8 +24,6 @@ export const RoutesList = () => {
             <Route path="/faqs" element= {<FAQs />}>          
             </Route>
             <Route path="/terms" element= {<Terms />}>     
-            </Route>
-            <Route path="/algorithm" element= {<Alg />}>     
             </Route>
             <Route path="/privacy" element= {<Privacy />}>     
             </Route>
